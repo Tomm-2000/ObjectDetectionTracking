@@ -1,4 +1,4 @@
-# CodeAlpha Object Detection & Tracking
+# Multi-Object Detection & Tracking with YOLO11
 
 A video-based multi-object detection and tracking project using **YOLO11 Nano**, **Deep SORT**, and **OpenCV**. It detects objects in each video frame and overlays class labels, bounding boxes, and persistent track IDs.
 
@@ -17,11 +17,11 @@ A video-based multi-object detection and tracking project using **YOLO11 Nano**,
 
 ## Google Colab (Tesla T4 recommended)
 
-In a Colab session, clone this repository **after publishing it to GitHub**:
+Clone this repository in a Colab session. Select a GPU runtime if you plan to pass `--device cuda`.
 
 ```python
-!git clone https://github.com/Tomm-2000/CodeAlpha_ObjectDetectionTracking.git
-%cd /content/CodeAlpha_ObjectDetectionTracking
+!git clone https://github.com/Tomm-2000/ObjectDetectionTracking.git
+%cd /content/ObjectDetectionTracking
 %pip -q install -r requirements.txt
 ```
 
@@ -55,13 +55,17 @@ python -m src.track_video --video path/to/video.mp4 --output outputs/tracking_ou
 
 If `ffmpeg` is installed, the script creates browser-friendly H.264; otherwise it retains an MP4V-encoded output. In Colab, `ffmpeg` is usually available.
 
+## Inspect the output
+
+The MP4 overlays class labels, track IDs, the visible track count, and observed processing FPS. Compare IDs over consecutive frames to see where the tracker maintains or loses an association. Use `python -m src.track_video --help` to inspect the available inference settings.
+
 ## Tests
 
 ```bash
 python -m unittest discover -s tests -v
 ```
 
-Unit tests cover video dimension scaling and YOLO-to-Deep-SORT bounding-box conversion. They do **not** measure real-world tracking accuracy. The notebook in `notebooks/` preserves the original Colab experiment.
+Unit tests cover video dimension scaling and YOLO-to-Deep-SORT bounding-box conversion. They do **not** measure real-world tracking accuracy. The [original notebook](notebooks/CodeAlpha_ObjectDetectionTracking.ipynb) preserves the Colab experiment.
 
 ## Observed experiment
 
@@ -78,10 +82,10 @@ A Colab Tesla T4 video-processing run on Intel's public multi-object sample proc
 ## Project structure
 
 ```text
-CodeAlpha_ObjectDetectionTracking/
+ObjectDetectionTracking/
 ├── src/track_video.py
 ├── tests/test_track_video.py
-├── notebooks/                # Add your downloaded Colab notebook
+├── notebooks/                # Original Colab experiment
 ├── outputs/                  # Generated video (ignored by Git)
 ├── requirements.txt
 └── README.md
